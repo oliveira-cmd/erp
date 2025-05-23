@@ -28,10 +28,9 @@ CREATE TABLE IF NOT EXISTS `cupons` (
   `ativo` BOOLEAN DEFAULT TRUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Inserir alguns cupons de exemplo
 INSERT INTO `cupons` (`codigo`, `tipo_desconto`, `valor_desconto`, `data_validade`, `ativo`) VALUES
-('DESC10', 'percentual', 10.00, '2024-12-31', TRUE),
-('FRETEGRATISVIP', 'fixo', 0.00, NULL, TRUE), -- Usado para ilustrar, mas o frete tem regras próprias
+('DESC10', 'percentual', 10.00, '2026-12-31', TRUE),
+('FRETEGRATISVIP', 'fixo', 0.00, NULL, TRUE),
 ('VALOR5', 'fixo', 5.00, '2024-08-30', TRUE);
 
 
@@ -55,8 +54,6 @@ CREATE TABLE IF NOT EXISTS `pedido_itens` (
   `produto_id` INT NOT NULL,
   `quantidade` INT NOT NULL,
   `preco_unitario` DECIMAL(10, 2) NOT NULL COMMENT 'Preço do produto no momento da compra',
-  -- `variacao_id` INT NULL, -- Adicionar se usar a tabela `produto_variacoes`
   FOREIGN KEY (`pedido_id`) REFERENCES `pedidos`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`produto_id`) REFERENCES `produtos`(`id`) -- ON DELETE RESTRICT ou SET NULL dependendo da regra de negócio
-  -- FOREIGN KEY (`variacao_id`) REFERENCES `produto_variacoes`(`id`)
+  FOREIGN KEY (`produto_id`) REFERENCES `produtos`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
